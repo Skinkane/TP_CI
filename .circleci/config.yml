@@ -5,6 +5,8 @@ orbs:
 
 jobs:
   job-name:
+    docker:
+      - image: circleci/node:12
     steps:
       - checkout
       - run:
