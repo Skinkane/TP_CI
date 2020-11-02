@@ -5,8 +5,6 @@ orbs:
 
 jobs:
   job-name: node-gyp
-    docker:
-      - image: circleci/node:12
     steps:
       - checkout
       - run:
