@@ -4,7 +4,18 @@ jobs:
   build:
     docker:
       - image: cimg/node:14.10.1
+        environment:
+          DATABASE_URL: postgres://psqluer:psqlpassword@localhost:5432/psdb
+          JWT_SECRET: coucou
+          API_PORT: 3000
+          API_HOST: localhost
+          API_PROTOCOL: http
       - image: circleci/postgres:9.6.2-alpine
+      environment:
+        POSTGRES_USER: psqluer
+        POSTGRES_PASSWORD: psqlpassword
+        POSTGRES_DB: psdb
+
 
     steps:
       - checkout
@@ -15,15 +26,7 @@ jobs:
       - run: yarn lint
       - run: yarn format:check
       - run: yarn test:ci
-      - run:
-          name: "database"
-          command: yarn test:e2e
-          environment:
-            DATABASE_URL: postgres://psqluer:psqlpassword@localhost:5432/psdb
-            JWT_SECRET: coucou
-            API_PORT: 3000
-            API_HOST: localhost
-            API_PROTOCOL: http
+      - run: yarn test:e2e
       - save_cache:
           key: yarn-packages-{{ checksum "yarn.lock" }}
           paths:
