@@ -1,7 +1,9 @@
 workflows:
   starter:
     jobs:
-      - hello
+      - yarn
+      - checks
+      - database
   install:
     jobs:
       - yarn
