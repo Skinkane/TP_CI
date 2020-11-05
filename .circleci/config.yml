@@ -2,17 +2,18 @@ workflows:
   starter:
     jobs:
       - yarn
-      - checks
-      - database
   install:
     jobs:
       - yarn
-      - lint:
+      - checks:
+          requires:
+            - yarn
+      - database:
           requires:
             - yarn
   tests:
     jobs:
-      - test
+      - checks
       - e2e
   yarn:
     docker:
